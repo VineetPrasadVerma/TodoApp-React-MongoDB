@@ -1,0 +1,19 @@
+{
+  "name": "todoapp-react-mongodb",
+  "version": "1.0.0",
+  "description": "Clone of functionalities of Ubuntu Todo App.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VineetPrasadVerma/TodoApp-React-MongoDB.git"
+  },
+  "author": "Vineet Prasad Verma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VineetPrasadVerma/TodoApp-React-MongoDB/issues"
+  },
+  "homepage": "https://github.com/VineetPrasadVerma/TodoApp-React-MongoDB#readme"
+}
