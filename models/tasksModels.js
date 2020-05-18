@@ -7,10 +7,10 @@ const tasksSchema = new mongoose.Schema({
   },
   subTasks: [
     {
-      id: {
-        type: Date,
-        default: Date.now()
-      },
+      // id: {
+      //   type: Date,
+      //   default: Date.now()
+      // },
       name: {
         type: String,
         required: true
