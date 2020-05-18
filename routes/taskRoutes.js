@@ -6,7 +6,7 @@ const { taskQueries } = require('../controllers/taskController')
 router.get('/', taskQueries.getAllTasks)
 
 // CREATE ROUTE
-// router.post('/', taskQueries.createTask)
+router.post('/', taskQueries.createTask)
 
 // UPDATE ROUTE
 // router.put('/:taskid', taskQueries.updateTask)
