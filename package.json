@@ -4,7 +4,8 @@
   "description": "Clone of functionalities of Ubuntu Todo App.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/VineetPrasadVerma/TodoApp-React-MongoDB/issues"
   },
-  "homepage": "https://github.com/VineetPrasadVerma/TodoApp-React-MongoDB#readme"
+  "homepage": "https://github.com/VineetPrasadVerma/TodoApp-React-MongoDB#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.14"
+  }
 }
