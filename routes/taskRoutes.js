@@ -9,9 +9,9 @@ router.get('/', taskQueries.getAllTasks)
 router.post('/', taskQueries.createTask)
 
 // UPDATE ROUTE
-// router.put('/:taskid', taskQueries.updateTask)
+router.put('/:taskid', taskQueries.updateTask)
 
 // DELETE ROUTE
-// router.delete('/:taskid', taskQueries.deleteTask)
+router.delete('/:taskid', taskQueries.deleteTask)
 
 module.exports = router
