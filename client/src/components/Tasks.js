@@ -25,14 +25,17 @@ const Tasks = () => {
 
   return tasks.length ? (
     <div className='container'>
+
       <form onSubmit={handleAddTask}>
         <input type='text' value={taskName} placeholder=' Search | Add Tasks' onChange={(event) => setTaskName(event.target.value)} />
       </form>
+
       <div className='taskList'>
         {tasks.map(task => {
           return (<TaskDetails task={task} key={task._id} />)
         })}
       </div>
+
     </div>
   ) : (
     <p> </p>

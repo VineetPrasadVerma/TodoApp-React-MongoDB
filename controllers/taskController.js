@@ -28,7 +28,6 @@ taskQueries.updateTask = async (req, res) => {
     const taskName = req.body.taskName
 
     const task = await Task.findOneAndUpdate({ _id: taskId }, { name: taskName }, { new: true })
-    // console.log(task)
     if (!task) {
       return res.status(404).json({ message: `Can't find task with id ${taskId}` })
     }

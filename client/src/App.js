@@ -1,5 +1,4 @@
 import React from 'react'
-import './App.css'
 import Tasks from './components/Tasks'
 import TaskContextProvider from './contexts/TaskContext'
 
