@@ -6,6 +6,9 @@ export const taskReducer = (state, action) => {
     case 'ADD_TASK':
       return [...state, { _id: action.task.taskId, name: action.task.name }]
 
+    case 'DELETE_TASK':
+      return state.filter(task => task._id !== action.task.taskId)
+
     default:
       return state
   }

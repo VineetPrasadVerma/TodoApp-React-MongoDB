@@ -15,7 +15,7 @@ const TaskContextProvider = (props) => {
     )
   }, [])
 
-  console.log(tasks)
+  // console.log(tasks)
   return (
     <TaskContext.Provider value={{ tasks, dispatch }}>
       {props.children}
