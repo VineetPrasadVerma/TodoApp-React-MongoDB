@@ -26,6 +26,8 @@ const Tasks = () => {
   return tasks.length ? (
     <div className='container'>
 
+      <h1> TODO'S </h1>
+
       <form onSubmit={handleAddTask}>
         <input type='text' value={taskName} placeholder=' Search | Add Tasks' onChange={(event) => setTaskName(event.target.value)} />
       </form>

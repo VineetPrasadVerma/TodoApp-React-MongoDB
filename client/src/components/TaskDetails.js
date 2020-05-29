@@ -11,7 +11,6 @@ const TaskDetails = ({ task }) => {
 
   const handleUpdateTask = async (event, id) => {
     event.preventDefault()
-    console.log(taskName)
     const res = await axios({
       method: 'PUT',
       url: `http://localhost:5500/tasks/${id}`,
@@ -22,7 +21,7 @@ const TaskDetails = ({ task }) => {
 
     if (res) {
       dispatch({ type: 'UPDATE_TASK', task: { taskId: id, name: taskName } })
-      setTaskName('')
+      // setTaskName('')
       setEditInput(false)
     }
   }
@@ -41,8 +40,8 @@ const TaskDetails = ({ task }) => {
   return !showEditInput ? (
     <div className='taskItem'>
       <span id='taskName'>{task.name}</span>
-      <span><FontAwesomeIcon id='deleteIcon' icon={faTrash} onClick={() => handleDeleteTask(task._id)} /></span>
-      <span><FontAwesomeIcon id='editIcon' icon={faPencilAlt} onClick={() => setEditInput(true)} /></span>
+      <FontAwesomeIcon id='deleteIcon' icon={faTrash} onClick={() => handleDeleteTask(task._id)} />
+      <FontAwesomeIcon id='editIcon' icon={faPencilAlt} onClick={() => setEditInput(true)} />
     </div>
   ) : (
     <form onSubmit={(event) => handleUpdateTask(event, task._id)}>
