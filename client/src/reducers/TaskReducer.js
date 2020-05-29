@@ -4,7 +4,8 @@ export const taskReducer = (state, action) => {
       return [...action.tasks]
 
     case 'ADD_TASK':
-      return [...state]
+      return [...state, { _id: action.task.taskId, name: action.task.name }]
+
     default:
       return state
   }
