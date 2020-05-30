@@ -12,14 +12,13 @@ subTaskQueries.getAllSubtask = async (req, res) => {
     }
 
     const subTasks = task.subTasks
+    // if (subTasks.length === 0) {
+    //   return res.status(200).json({ task: { taskId, taskName: task.name }, message: 'No subTasks present' })
+    // }
 
-    if (subTasks.length === 0) {
-      return res.status(200).json({ message: 'No subTasks present' })
-    }
-
-    res.status(200).json(subTasks)
+    res.status(200).json({ task: { taskId, taskName: task.name }, subTasks })
   } catch (e) {
-    res.status(500).json({ message: 'Can\'t get tasks' })
+    res.status(500).json({ message: 'Can\'t get subtasks' })
   }
 }
 
@@ -42,7 +41,7 @@ subTaskQueries.createSubtask = async (req, res) => {
     task.subTasks.push(subTask)
     await task.save()
 
-    res.status(201).send(subTask)
+    res.status(201).send(task)
   } catch (e) {
     res.status(500).json({ message: 'Can\'t add subTask' })
   }

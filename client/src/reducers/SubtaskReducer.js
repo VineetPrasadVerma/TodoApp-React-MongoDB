@@ -1,10 +1,10 @@
 export const subtaskReducer = (state, action) => {
   switch (action.type) {
     case 'GET_SUBTASK':
-      return [...action.subtasks]
+      return [...action.subtasks.subTasks]
 
     case 'ADD_SUBTASK':
-      return [...state, { _id: action.task.taskId, name: action.task.name }]
+      return [...action.subtasks]
 
     case 'DELETE_SUBTASK':
       return state.filter(task => task._id !== action.task.taskId)

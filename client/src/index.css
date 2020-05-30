@@ -59,3 +59,34 @@ input{
   text-align: center;
 }
 
+#backIcon{
+  text-decoration: none;
+  color:#333;
+  float: left;
+  padding: 4px 0;
+  font-size: 20px;
+}
+
+#timesIcon{
+  float: right;
+  padding: 4px 0;
+  font-size: 20px;
+}
+
+
+#editIcon{
+  float: right;
+  margin-right: 8px;
+  /* margin-left: 150px; */
+  /* position: absolute; */
+}
+
+#deleteIcon{
+  float: right;
+  margin-right: 8px;
+}
+
+#expandIcon{
+  float:right;
+}
+

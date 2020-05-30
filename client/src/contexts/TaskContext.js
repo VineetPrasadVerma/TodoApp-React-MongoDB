@@ -13,10 +13,9 @@ const TaskContextProvider = (props) => {
   // }
 
   useEffect(() => {
-    axios.get('http://localhost:5500/tasks/').then(res =>
-      dispatch({ type: 'GET_TASK', tasks: res.data })
+    axios.get('http://localhost:5500/tasks/').then(res => dispatch({ type: 'GET_TASK', tasks: res.data })
     ).catch(() => { props.handleError('Can\'t get task') })
-  })
+  }, [])
 
   // console.log(tasks)
   return (

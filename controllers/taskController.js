@@ -5,7 +5,7 @@ const taskQueries = {}
 taskQueries.getAllTasks = async (req, res) => {
   try {
     const tasks = await Task.find()
-    if (tasks === []) return res.status(200).json({ taskCount: 0, message: 'No tasks present' })
+    // if (tasks === []) return res.status(200).json({ taskCount: 0, message: 'No tasks present' })
     return res.status(200).json(tasks)
   } catch (err) {
     res.status(500).json({ taskCount: 0, message: 'Can\'t get tasks' })
