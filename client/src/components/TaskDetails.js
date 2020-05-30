@@ -3,6 +3,7 @@ import { TaskContext } from '../contexts/TaskContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const TaskDetails = ({ task, handleError }) => {
   const { dispatch } = useContext(TaskContext)
@@ -14,7 +15,7 @@ const TaskDetails = ({ task, handleError }) => {
 
     if (taskName) {
       try {
-        const res = await axios({
+        await axios({
           method: 'PUT',
           url: `http://localhost:5500/tasks/${id}`,
           data: { taskName },
@@ -35,7 +36,7 @@ const TaskDetails = ({ task, handleError }) => {
 
   const handleDeleteTask = async (id) => {
     try {
-      const res = await axios({
+      await axios({
         method: 'DELETE',
         url: `http://localhost:5500/tasks/${id}`
       })
@@ -48,7 +49,7 @@ const TaskDetails = ({ task, handleError }) => {
 
   return !showEditInput ? (
     <div className='taskItem'>
-      <span id='taskName'>{task.name}</span>
+      <Link id='taskName' to={`tasks/${task._id}/subtasks/`}><span>{task.name}</span></Link>
       <FontAwesomeIcon id='deleteIcon' icon={faTrash} onClick={() => handleDeleteTask(task._id)} />
       <FontAwesomeIcon id='editIcon' icon={faPencilAlt} onClick={() => setEditInput(true)} />
     </div>
