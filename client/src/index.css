@@ -48,3 +48,8 @@ input{
 .taskList form{
   padding: 2px;
 }
+
+.error{
+  margin: 100px auto;
+  text-align: center;
+}

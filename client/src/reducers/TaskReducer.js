@@ -14,7 +14,6 @@ export const taskReducer = (state, action) => {
         if (task._id === action.task.taskId) {
           task.name = action.task.name
         }
-
         return task
       })
 
