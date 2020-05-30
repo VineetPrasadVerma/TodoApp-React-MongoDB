@@ -4,36 +4,45 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 
-const TaskDetails = ({ task }) => {
+const TaskDetails = ({ task, handleError }) => {
   const { dispatch } = useContext(TaskContext)
   const [showEditInput, setEditInput] = useState(false)
   const [taskName, setTaskName] = useState(task.name)
 
   const handleUpdateTask = async (event, id) => {
     event.preventDefault()
-    const res = await axios({
-      method: 'PUT',
-      url: `http://localhost:5500/tasks/${id}`,
-      data: { taskName },
-      headers: { 'Content-type': 'application/json' }
 
-    })
+    if (taskName) {
+      try {
+        const res = await axios({
+          method: 'PUT',
+          url: `http://localhost:5500/tasks/${id}`,
+          data: { taskName },
+          headers: { 'Content-type': 'application/json' }
 
-    if (res) {
-      dispatch({ type: 'UPDATE_TASK', task: { taskId: id, name: taskName } })
-      // setTaskName('')
-      setEditInput(false)
+        })
+
+        dispatch({ type: 'UPDATE_TASK', task: { taskId: id, name: taskName } })
+        // setTaskName('')
+        setEditInput(false)
+      } catch (err) {
+        handleError('Can\'t update task')
+      }
+    } else {
+      event.target.children[0].placeholder = 'Taskname cannot be empty'
     }
   }
 
   const handleDeleteTask = async (id) => {
-    const res = await axios({
-      method: 'DELETE',
-      url: `http://localhost:5500/tasks/${id}`
-    })
+    try {
+      const res = await axios({
+        method: 'DELETE',
+        url: `http://localhost:5500/tasks/${id}`
+      })
 
-    if (res) {
       dispatch({ type: 'DELETE_TASK', task: { taskId: id } })
+    } catch (err) {
+      handleError('Can\'t delete task')
     }
   }
 
@@ -45,7 +54,7 @@ const TaskDetails = ({ task }) => {
     </div>
   ) : (
     <form onSubmit={(event) => handleUpdateTask(event, task._id)}>
-      <input type='text' autoFocus value={taskName} placeholder=' Search | Add Tasks' onChange={(event) => setTaskName(event.target.value)} />
+      <input type='text' autoFocus value={taskName} placeholder=' Edit task' onChange={(event) => setTaskName(event.target.value)} />
     </form>
   )
 }

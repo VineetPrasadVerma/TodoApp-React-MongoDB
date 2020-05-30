@@ -15,7 +15,7 @@ function App () {
   return !error ? (
     <div className='App'>
       <TaskContextProvider handleError={message => showError(message)}>
-        <Tasks />
+        <Tasks handleError={message => showError(message)} />
       </TaskContextProvider>
     </div>
   ) : (

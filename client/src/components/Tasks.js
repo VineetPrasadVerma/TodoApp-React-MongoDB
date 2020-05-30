@@ -1,26 +1,41 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { TaskContext } from '../contexts/TaskContext'
 import TaskDetails from './TaskDetails'
 import axios from 'axios'
 
-const Tasks = () => {
-  const [taskName, setTaskName] = useState('')
+const Tasks = ({ handleError }) => {
   const { tasks, dispatch } = useContext(TaskContext)
+
+  const [taskName, setTaskName] = useState('')
+  const [searchedTasks, setSearchedTasks] = useState([])
+
+  useEffect(() => {
+    setSearchedTasks(tasks)
+  }, [tasks])
+
+  const handleSearchTask = (event) => {
+    event.target.placeholder = ' Search | Add Task'
+    setTaskName(event.target.value)
+    setSearchedTasks(tasks.filter(task => task.name.toLowerCase().includes(event.target.value.toLowerCase())))
+    // dispatch({ type: 'GET_TASK', tasks: searchedTasks })
+  }
 
   const handleAddTask = async (event) => {
     event.preventDefault()
 
     if (taskName) {
-      const res = await axios({
-        method: 'POST',
-        url: 'http://localhost:5500/tasks/',
-        data: { taskName },
-        headers: { 'Content-type': 'application/json' }
-      })
+      try {
+        const res = await axios({
+          method: 'POST',
+          url: 'http://localhost:5500/tasks/',
+          data: { taskName },
+          headers: { 'Content-type': 'application/json' }
+        })
 
-      if (res) {
         dispatch({ type: 'ADD_TASK', task: { taskId: res.data.taskId, name: res.data.name } })
         setTaskName('')
+      } catch (err) {
+        handleError('Can\'t add task')
       }
     } else {
       event.target.children[0].placeholder = 'Can\'t add empty task'
@@ -33,13 +48,20 @@ const Tasks = () => {
       <h1> TODO'S </h1>
 
       <form onSubmit={handleAddTask}>
-        <input type='text' value={taskName} autoFocus placeholder=' Search | Add Tasks' onChange={(event) => setTaskName(event.target.value)} />
+        <input type='text' value={taskName} autoFocus placeholder=' Search | Add Task' onChange={(event) => handleSearchTask(event)} />
       </form>
 
       <div className='taskList'>
-        {tasks.map(task => {
-          return (<TaskDetails task={task} key={task._id} />)
-        })}
+        {searchedTasks.length ? (
+          <div>
+            {searchedTasks.map(task => {
+              return (<TaskDetails handleError={handleError} task={task} key={task._id} />)
+            })}
+          </div>
+        ) : (
+          <p>No Task Found</p>
+        )}
+
       </div>
 
     </div>
