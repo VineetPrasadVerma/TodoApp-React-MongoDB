@@ -54,6 +54,11 @@ input{
   padding: 2px;
 }
 
+.subtaskList form{
+  padding: 2px;
+}
+
+
 .error{
   margin: 100px auto;
   text-align: center;

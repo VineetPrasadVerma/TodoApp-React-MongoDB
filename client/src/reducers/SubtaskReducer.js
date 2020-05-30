@@ -7,14 +7,14 @@ export const subtaskReducer = (state, action) => {
       return [...action.subtasks]
 
     case 'DELETE_SUBTASK':
-      return state.filter(task => task._id !== action.task.taskId)
+      return state.filter(subtask => subtask._id !== action.subtask.subtaskId)
 
     case 'UPDATE_SUBTASK':
-      return state.map(task => {
-        if (task._id === action.task.taskId) {
-          task.name = action.task.name
+      return state.map(subtask => {
+        if (subtask._id === action.subtask.subtaskId) {
+          subtask.name = action.subtask.subtaskName
         }
-        return task
+        return subtask
       })
 
     default:

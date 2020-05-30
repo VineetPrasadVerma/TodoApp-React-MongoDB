@@ -30,7 +30,7 @@ const TaskDetails = ({ task, handleError }) => {
         handleError('Can\'t update task')
       }
     } else {
-      event.target.children[0].placeholder = 'Taskname cannot be empty'
+      event.target.children[0].placeholder = 'Task cannot be empty'
     }
   }
 
