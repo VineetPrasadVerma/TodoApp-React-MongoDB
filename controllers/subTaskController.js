@@ -41,7 +41,7 @@ subTaskQueries.createSubtask = async (req, res) => {
     task.subTasks.push(subTask)
     await task.save()
 
-    res.status(201).send(task)
+    res.status(201).send({ newSubtask: task.subTasks[task.subTasks.length - 1] })
   } catch (e) {
     res.status(500).json({ message: 'Can\'t add subTask' })
   }
