@@ -8,16 +8,16 @@ const SubTaskDetails = ({ task, subtask, handleError }) => {
   const { dispatch } = useContext(SubtaskContext)
   const [showEditInput, setEditInput] = useState(false)
   const [subtaskName, setSubtaskName] = useState(subtask.name)
+  const [completed, setCompleted] = useState(subtask.completed)
 
-  const handleUpdateSubtask = async (event, id) => {
+  const handleUpdateSubtask = async (event, id, value) => {
     event.preventDefault()
-
     if (subtaskName) {
       try {
         await axios({
           method: 'PUT',
           url: 'http://localhost:5500/tasks/' + task.taskId + '/subtasks/' + id,
-          data: { name: subtaskName },
+          data: { [event.target.id]: value },
           headers: { 'Content-type': 'application/json' }
 
         })
@@ -48,13 +48,20 @@ const SubTaskDetails = ({ task, subtask, handleError }) => {
 
   return !showEditInput ? (
     <div className='taskItem'>
-      <span id='subtaskName'>{subtask.name}</span>
-      <FontAwesomeIcon id='expandIcon' icon={faArrowCircleDown} onClick={() => setEditInput(true)} />
-      <FontAwesomeIcon id='deleteIcon' icon={faTrash} onClick={() => handleDeleteSubtask(subtask._id)} />
-      <FontAwesomeIcon id='editIcon' icon={faPencilAlt} onClick={() => setEditInput(true)} />
+      <input
+        id='completed' type='checkbox' checked={completed}
+        onChange={(event) => {
+          setCompleted(!completed)
+          handleUpdateSubtask(event, subtask._id, !completed)
+        }}
+      />
+      <span className={completed ? 'finished' : ''} id='subtaskName'>{subtask.name}</span>
+      <FontAwesomeIcon className={completed ? 'finished' : ''} id='expandIcon' icon={faArrowCircleDown} onClick={() => setEditInput(true)} />
+      <FontAwesomeIcon className={completed ? 'finished' : ''} id='deleteIcon' icon={faTrash} onClick={() => handleDeleteSubtask(subtask._id)} />
+      <FontAwesomeIcon className={completed ? 'finished' : ''} id='editIcon' icon={faPencilAlt} onClick={() => setEditInput(true)} />
     </div>
   ) : (
-    <form onSubmit={(event) => handleUpdateSubtask(event, subtask._id)}>
+    <form id='name' onSubmit={(event) => handleUpdateSubtask(event, subtask._id, subtaskName)}>
       <input type='text' autoFocus value={subtaskName} placeholder=' Edit task' onChange={(event) => setSubtaskName(event.target.value)} />
     </form>
   )

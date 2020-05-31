@@ -23,12 +23,21 @@ input, textarea {
 }
 
 input{
+	box-sizing: border-box;
   width: 100%;
 }
 
+
 .taskItem{
   padding: 8px;
-  text-align: left;
+  text-align: left; 
+}
+
+#completed{
+  float: left;
+  width: auto;
+  margin-right: 5px;
+  margin-top: 3px;
 }
 
 #taskName{
@@ -40,7 +49,7 @@ input{
   cursor: pointer;
 }
 
-#deleteIcon{
+#taskDeleteIcon{
   float: right;
   /* margin-left: 5px; */
 }
@@ -78,13 +87,10 @@ input{
   font-size: 20px;
 }
 
-
-#editIcon{
+/* #editIcon{
   float: right;
   margin-right: 8px;
-  /* margin-left: 150px; */
-  /* position: absolute; */
-}
+} */
 
 #deleteIcon{
   float: right;
@@ -93,5 +99,11 @@ input{
 
 #expandIcon{
   float:right;
+}
+
+.finished{
+  text-decoration: line-through;
+  pointer-events: none;
+  color: gray;
 }
 
