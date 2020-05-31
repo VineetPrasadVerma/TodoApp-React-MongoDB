@@ -1,25 +1,27 @@
 import React, { useState } from 'react'
 
-const SubtaskExtraDetails = ({ subtask, handleUpdateSubtask, handleError }) => {
-  const [notes, setNotes] = useState(subtask.note)
-  const [scheduled, setScheduled] = useState(subtask.scheduled)
-  const [priority, setPriority] = useState(subtask.priority)
+const SubtaskExtraDetails = ({ subtask, handleUpdateSubtask }) => {
+//   console.log(subtask)
+//   const [scheduled, setScheduled] = useState(subtask.scheduled)
+//   const [priority, setPriority] = useState(subtask.priority)
+  const [note, setNote] = useState(subtask.note)
+
   return (
     <div className='subTaskExpand'>
       <span id='notesLabel'>Notes:</span>
       <textarea
-        id='note' value={notes}
+        id='note' value={note}
         onChange={(event) => {
-          setNotes(event.target.value)
-          handleUpdateSubtask(event, subtask._id, notes)
+          setNote(event.target.value)
+        //   handleUpdateSubtask(event, subtask._id, event.target.value)
         }}
+        onBlur={(event) => handleUpdateSubtask(event, subtask._id, note)}
       />
 
       <select
-        id='priority' value={priority} onChange={(event) => {
-          setPriority(event.target.value)
-          console.log(event.target.value)
-          handleUpdateSubtask(event, subtask._id, priority)
+        id='priority' value={subtask.priority} onChange={(event) => {
+        //   setPriority(event.target.value)
+          handleUpdateSubtask(event, subtask._id, event.target.value)
         }}
       >
         <option value='3'>High</option>
@@ -29,10 +31,15 @@ const SubtaskExtraDetails = ({ subtask, handleUpdateSubtask, handleError }) => {
       </select>
 
       <input
-        id='scheduled' type='date'
+        id='scheduled' type='date' value={subtask.scheduled === 'null' ? '' : subtask.scheduled}
         onChange={(event) => {
-          setScheduled(scheduled)
-          handleUpdateSubtask(event, subtask._id, scheduled)
+        //   setScheduled(scheduled)
+        //   console.log(event.target.value, scheduled)
+          if (event.target.value === '') {
+            handleUpdateSubtask(event, subtask._id, 'null')
+          } else {
+            handleUpdateSubtask(event, subtask._id, event.target.value)
+          }
         }}
       />
     </div>
