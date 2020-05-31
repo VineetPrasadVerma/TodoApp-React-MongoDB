@@ -3,18 +3,21 @@ import { SubtaskContext } from '../contexts/SubtaskContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faPencilAlt, faArrowCircleDown } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
+import SubtaskExtraDetails from './SubtaskExtraDetails'
 
 const SubTaskDetails = ({ task, subtask, handleError }) => {
   const { dispatch } = useContext(SubtaskContext)
   const [showEditInput, setEditInput] = useState(false)
   const [subtaskName, setSubtaskName] = useState(subtask.name)
   const [completed, setCompleted] = useState(subtask.completed)
+  const [expandSubtask, setExpandSubtask] = useState(false)
 
   const handleUpdateSubtask = async (event, id, value) => {
     event.preventDefault()
+    // console.log({ [event.target.id]: value })
     if (subtaskName) {
       try {
-        await axios({
+        const res = await axios({
           method: 'PUT',
           url: 'http://localhost:5500/tasks/' + task.taskId + '/subtasks/' + id,
           data: { [event.target.id]: value },
@@ -22,7 +25,7 @@ const SubTaskDetails = ({ task, subtask, handleError }) => {
 
         })
 
-        dispatch({ type: 'UPDATE_SUBTASK', subtask: { subtaskId: id, subtaskName } })
+        dispatch({ type: 'UPDATE_SUBTASK', updatedSubtask: res.data.updatedSubtask })
         setSubtaskName(subtaskName)
         setEditInput(false)
       } catch (err) {
@@ -56,9 +59,13 @@ const SubTaskDetails = ({ task, subtask, handleError }) => {
         }}
       />
       <span className={completed ? 'finished' : ''} id='subtaskName'>{subtask.name}</span>
-      <FontAwesomeIcon className={completed ? 'finished' : ''} id='expandIcon' icon={faArrowCircleDown} onClick={() => setEditInput(true)} />
+      <FontAwesomeIcon className={completed ? 'finished' : ''} id='expandIcon' icon={faArrowCircleDown} onClick={() => setExpandSubtask(!expandSubtask)} />
       <FontAwesomeIcon className={completed ? 'finished' : ''} id='deleteIcon' icon={faTrash} onClick={() => handleDeleteSubtask(subtask._id)} />
       <FontAwesomeIcon className={completed ? 'finished' : ''} id='editIcon' icon={faPencilAlt} onClick={() => setEditInput(true)} />
+      {expandSubtask ? (
+        <SubtaskExtraDetails subtask={subtask} handleUpdateSubtask={handleUpdateSubtask} />) : (
+        ''
+      )}
     </div>
   ) : (
     <form id='name' onSubmit={(event) => handleUpdateSubtask(event, subtask._id, subtaskName)}>

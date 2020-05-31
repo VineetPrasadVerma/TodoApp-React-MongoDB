@@ -107,3 +107,39 @@ input{
   color: gray;
 }
 
+#notesLabel{
+  grid-area: notesLabel;
+  text-align: left;
+}
+
+#note{
+  grid-area: notes; 
+  resize: none;
+}
+
+#priority{
+  grid-area: priority;
+}
+
+#scheduled{
+  grid-area: scheduling;
+  margin-top: 10px;
+}
+
+.subTaskExpand{
+  display: grid;
+  height: 150px;
+  margin-top: 10px;
+  border: 1px solid gray;
+  grid-column-gap: 5px;
+  padding: 5px;
+  grid-template-areas: 
+  "notesLabel notesLabel . ."
+  "notes notes . ."
+  "notes notes priority priority"
+  "notes notes scheduling scheduling"
+  "notes notes . ."
+  "notes notes . ."
+
+}
+

@@ -67,7 +67,7 @@ subTaskQueries.updateSubtask = async (req, res) => {
     if (index !== -1) {
       Object.assign(task.subTasks[index], { [subTaskField]: subTaskValue })
       await task.save()
-      return res.status(200).send({ message: `Subtask modified with ID: ${subTaskId}` })
+      return res.status(200).send({ updatedSubtask: task.subTasks[index] })
     }
 
     return res.status(404).json({ message: `Can't find subtask with id ${subTaskId}` })

@@ -22,7 +22,7 @@ const Subtask = ({ handleError }) => {
           headers: { 'Content-type': 'application/json' }
         })
 
-        dispatch({ type: 'ADD_SUBTASK', subtask: res.data.newSubtask })
+        dispatch({ type: 'ADD_SUBTASK', newSubtask: res.data.newSubtask })
         setSubtaskName('')
       } catch (err) {
         handleError('Can\'t add subtask')
