@@ -12,6 +12,7 @@ subTaskQueries.getAllSubtask = async (req, res) => {
     }
 
     const subTasks = task.subTasks
+    // console.log(subTasks.sort({ _id: -1 }))
     // if (subTasks.length === 0) {
     //   return res.status(200).json({ task: { taskId, taskName: task.name }, message: 'No subTasks present' })
     // }
@@ -35,7 +36,7 @@ subTaskQueries.createSubtask = async (req, res) => {
 
     const subTask = {
       name: subTaskName,
-      note: ''
+      createdAt: Date.now()
     }
 
     task.subTasks.push(subTask)
@@ -67,7 +68,8 @@ subTaskQueries.updateSubtask = async (req, res) => {
     if (index !== -1) {
       Object.assign(task.subTasks[index], { [subTaskField]: subTaskValue })
       await task.save()
-      return res.status(200).send({ updatedSubtask: task.subTasks[index] })
+      console.log(task.subTasks[index])
+      return res.status(200).send({ updatedSubtask: task.subTasks[index], subtasks: task.subTasks })
     }
 
     return res.status(404).json({ message: `Can't find subtask with id ${subTaskId}` })

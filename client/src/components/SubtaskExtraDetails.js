@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const SubtaskExtraDetails = ({ subtask, handleUpdateSubtask }) => {
+const SubtaskExtraDetails = ({ subtask, handleUpdateSubtask, setExpandSubtask }) => {
 //   console.log(subtask)
 //   const [scheduled, setScheduled] = useState(subtask.scheduled)
 //   const [priority, setPriority] = useState(subtask.priority)
@@ -22,6 +22,7 @@ const SubtaskExtraDetails = ({ subtask, handleUpdateSubtask }) => {
         id='priority' value={subtask.priority} onChange={(event) => {
         //   setPriority(event.target.value)
           handleUpdateSubtask(event, subtask._id, event.target.value)
+          setExpandSubtask(false)
         }}
       >
         <option value='3'>High</option>
@@ -37,8 +38,10 @@ const SubtaskExtraDetails = ({ subtask, handleUpdateSubtask }) => {
         //   console.log(event.target.value, scheduled)
           if (event.target.value === '') {
             handleUpdateSubtask(event, subtask._id, 'null')
+            setExpandSubtask(false)
           } else {
             handleUpdateSubtask(event, subtask._id, event.target.value)
+            setExpandSubtask(false)
           }
         }}
       />

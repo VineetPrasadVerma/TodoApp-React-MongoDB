@@ -140,6 +140,11 @@ input{
   "notes notes scheduling scheduling"
   "notes notes . ."
   "notes notes . ."
-
 }
+
+
+.disable{
+  color: gray;
+  pointer-Events:none;
+} 
 

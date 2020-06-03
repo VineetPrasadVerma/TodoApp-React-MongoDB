@@ -10,9 +10,30 @@ const Subtask = ({ handleError }) => {
   const { task, subtasks, dispatch } = useContext(SubtaskContext)
   const [subtaskName, setSubtaskName] = useState('')
 
+  const completedSubtasks = subtasks.filter(subtask => subtask.completed)
+
+  const sortSubtasks = () => {
+    subtasks.sort((a, b) => a.createdAt - b.createdAt)
+
+    subtasks.sort((a, b) => {
+      if (a.scheduled > b.scheduled) return 1
+      if (b.scheduled > a.scheduled) return -1
+      return 0
+    })
+
+    subtasks.sort((a, b) => b.priority - a.priority)
+
+    subtasks.sort((a, b) => {
+      if (String(a.completed) > String(b.completed)) return 1
+      if (String(b.completed) > String(a.completed)) return -1
+      return 0
+    })
+
+    console.log(subtasks)
+  }
+
   const handleAddSubtask = async (event) => {
     event.preventDefault()
-
     if (subtaskName) {
       try {
         const res = await axios({
@@ -23,6 +44,7 @@ const Subtask = ({ handleError }) => {
         })
 
         dispatch({ type: 'ADD_SUBTASK', newSubtask: res.data.newSubtask })
+        // sortSubtasks()
         setSubtaskName('')
       } catch (err) {
         handleError('Can\'t add subtask')
@@ -37,18 +59,24 @@ const Subtask = ({ handleError }) => {
       <h2>
         <Link to='/'><FontAwesomeIcon id='backIcon' icon={faArrowCircleLeft} /></Link>
         {task.taskName}
-        <FontAwesomeIcon id='timesIcon' icon={faTimes} />
+        <FontAwesomeIcon className={completedSubtasks.length ? '' : 'disable'} id='timesIcon' icon={faTimes} title='Clear completed tasks' />
       </h2>
 
       <form onSubmit={handleAddSubtask}>
-        <input type='text' value={subtaskName} autoFocus placeholder=' Add subtask' onChange={(event) => setSubtaskName(event.target.value)} />
+        <input
+          type='text' value={subtaskName} autoFocus placeholder=' Add subtask'
+          onChange={(event) => {
+            event.target.placeholder = 'Add Subtask'
+            setSubtaskName(event.target.value)
+          }}
+        />
       </form>
 
       <div className='subtaskList'>
         {subtasks.length ? (
           <div>
             {subtasks.map(subTask => {
-              return (<SubtaskDetails handleError={handleError} subtask={subTask} task={task} key={subTask._id} />)
+              return (<SubtaskDetails handleError={handleError} sortSubtasks={sortSubtasks} subtask={subTask} task={task} key={subTask._id} />)
             })}
           </div>
         ) : (

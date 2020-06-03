@@ -28,6 +28,10 @@ const tasksSchema = new mongoose.Schema({
         default: 0
       },
       note: {
+        type: String,
+        default: ''
+      },
+      createdAt: {
         type: String
       }
     }

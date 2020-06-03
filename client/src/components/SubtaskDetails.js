@@ -5,7 +5,7 @@ import { faTrash, faPencilAlt, faArrowCircleDown } from '@fortawesome/free-solid
 import axios from 'axios'
 import SubtaskExtraDetails from './SubtaskExtraDetails'
 
-const SubTaskDetails = ({ task, subtask, handleError }) => {
+const SubTaskDetails = ({ task, subtask, handleError, sortSubtasks }) => {
   const { dispatch } = useContext(SubtaskContext)
   const [showEditInput, setEditInput] = useState(false)
   const [subtaskName, setSubtaskName] = useState(subtask.name)
@@ -36,6 +36,9 @@ const SubTaskDetails = ({ task, subtask, handleError }) => {
         })
 
         dispatch({ type: 'UPDATE_SUBTASK', updatedSubtask: res.data.updatedSubtask })
+
+        dispatch({ type: 'SORT_SUBTASKS', subtasks: res.data.subtasks })
+
         setSubtaskName(subtaskName)
         setEditInput(false)
       } catch (err) {
@@ -73,7 +76,7 @@ const SubTaskDetails = ({ task, subtask, handleError }) => {
       <FontAwesomeIcon className={completed ? 'finished' : ''} id='deleteIcon' icon={faTrash} onClick={() => handleDeleteSubtask(subtask._id)} />
       <FontAwesomeIcon className={completed ? 'finished' : ''} id='editIcon' icon={faPencilAlt} onClick={() => setEditInput(true)} />
       {expandSubtask ? (
-        <SubtaskExtraDetails subtask={subtask} handleUpdateSubtask={handleUpdateSubtask} />) : (
+        <SubtaskExtraDetails subtask={subtask} handleUpdateSubtask={handleUpdateSubtask} setExpandSubtask={setExpandSubtask} />) : (
         ''
       )}
     </div>
