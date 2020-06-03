@@ -32,7 +32,7 @@ const SubtaskExtraDetails = ({ subtask, handleUpdateSubtask, setExpandSubtask })
       </select>
 
       <input
-        id='scheduled' type='date' value={subtask.scheduled === 'null' ? '' : subtask.scheduled}
+        id='scheduled' type='date' value={subtask.scheduled}
         onChange={(event) => {
         //   setScheduled(scheduled)
         //   console.log(event.target.value, scheduled)
