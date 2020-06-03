@@ -33,13 +33,26 @@ const Subtask = ({ handleError }) => {
       event.target.children[0].placeholder = 'Can\'t add empty subtask'
     }
   }
+
+  const handleDeleteCompletedSubtasks = async () => {
+    try {
+      const res = await axios({
+        method: 'DELETE',
+        url: 'http://localhost:5500/tasks/' + task.taskId + '/subtasks/'
+      })
+
+      dispatch({ type: 'DELETE_COMPLETED_SUBTASKS' })
+    } catch (err) {
+      handleError('Can\'t delete subtasks')
+    }
+  }
   return (
     <div className='container'>
 
       <h2>
         <Link to='/'><FontAwesomeIcon id='backIcon' icon={faArrowCircleLeft} /></Link>
         {task.taskName}
-        <FontAwesomeIcon className={completedSubtasks.length ? '' : 'disable'} id='timesIcon' icon={faTimes} title='Clear completed tasks' />
+        <FontAwesomeIcon className={completedSubtasks.length ? '' : 'disable'} id='timesIcon' icon={faTimes} title='Clear completed tasks' onClick={handleDeleteCompletedSubtasks} />
       </h2>
 
       <form onSubmit={handleAddSubtask}>

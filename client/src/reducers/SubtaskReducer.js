@@ -36,6 +36,9 @@ export const subtaskReducer = (state, action) => {
 
       return [...state]
 
+    case 'DELETE_COMPLETED_SUBTASKS':
+      return state.filter(subtask => !subtask.completed)
+
     default:
       return state
   }
