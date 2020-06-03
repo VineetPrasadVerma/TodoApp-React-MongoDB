@@ -36,7 +36,7 @@ const Subtask = ({ handleError }) => {
 
   const handleDeleteCompletedSubtasks = async () => {
     try {
-      const res = await axios({
+      await axios({
         method: 'DELETE',
         url: 'http://localhost:5500/tasks/' + task.taskId + '/subtasks/'
       })
