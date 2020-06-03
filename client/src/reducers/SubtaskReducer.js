@@ -18,23 +18,23 @@ export const subtaskReducer = (state, action) => {
       })
 
     case 'SORT_SUBTASKS':
-      action.subtasks.sort((a, b) => a.createdAt - b.createdAt)
+      state.sort((a, b) => a.createdAt - b.createdAt)
 
-      action.subtasks.sort((a, b) => {
+      state.sort((a, b) => {
         if (a.scheduled > b.scheduled) return 1
         if (b.scheduled > a.scheduled) return -1
         return 0
       })
 
-      action.subtasks.sort((a, b) => b.priority - a.priority)
+      state.sort((a, b) => b.priority - a.priority)
 
-      action.subtasks.sort((a, b) => {
-        if (String(a.completed) > String(b.completed)) return 1
-        if (String(b.completed) > String(a.completed)) return -1
+      state.sort((a, b) => {
+        if (a.completed > b.completed) return 1
+        if (b.completed > a.completed) return -1
         return 0
       })
 
-      return [...action.subtasks]
+      return [...state]
 
     default:
       return state

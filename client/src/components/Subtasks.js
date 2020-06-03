@@ -12,26 +12,6 @@ const Subtask = ({ handleError }) => {
 
   const completedSubtasks = subtasks.filter(subtask => subtask.completed)
 
-  const sortSubtasks = () => {
-    subtasks.sort((a, b) => a.createdAt - b.createdAt)
-
-    subtasks.sort((a, b) => {
-      if (a.scheduled > b.scheduled) return 1
-      if (b.scheduled > a.scheduled) return -1
-      return 0
-    })
-
-    subtasks.sort((a, b) => b.priority - a.priority)
-
-    subtasks.sort((a, b) => {
-      if (String(a.completed) > String(b.completed)) return 1
-      if (String(b.completed) > String(a.completed)) return -1
-      return 0
-    })
-
-    console.log(subtasks)
-  }
-
   const handleAddSubtask = async (event) => {
     event.preventDefault()
     if (subtaskName) {
@@ -44,7 +24,7 @@ const Subtask = ({ handleError }) => {
         })
 
         dispatch({ type: 'ADD_SUBTASK', newSubtask: res.data.newSubtask })
-        // sortSubtasks()
+        dispatch({ type: 'SORT_SUBTASKS' })
         setSubtaskName('')
       } catch (err) {
         handleError('Can\'t add subtask')
@@ -76,7 +56,7 @@ const Subtask = ({ handleError }) => {
         {subtasks.length ? (
           <div>
             {subtasks.map(subTask => {
-              return (<SubtaskDetails handleError={handleError} sortSubtasks={sortSubtasks} subtask={subTask} task={task} key={subTask._id} />)
+              return (<SubtaskDetails handleError={handleError} subtask={subTask} task={task} key={subTask._id} />)
             })}
           </div>
         ) : (

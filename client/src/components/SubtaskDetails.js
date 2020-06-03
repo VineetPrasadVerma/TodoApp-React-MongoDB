@@ -5,7 +5,7 @@ import { faTrash, faPencilAlt, faArrowCircleDown } from '@fortawesome/free-solid
 import axios from 'axios'
 import SubtaskExtraDetails from './SubtaskExtraDetails'
 
-const SubTaskDetails = ({ task, subtask, handleError, sortSubtasks }) => {
+const SubTaskDetails = ({ task, subtask, handleError }) => {
   const { dispatch } = useContext(SubtaskContext)
   const [showEditInput, setEditInput] = useState(false)
   const [subtaskName, setSubtaskName] = useState(subtask.name)
@@ -25,6 +25,8 @@ const SubTaskDetails = ({ task, subtask, handleError, sortSubtasks }) => {
   const handleUpdateSubtask = async (event, id, value) => {
     event.preventDefault()
     // console.log({ [event.target.id]: value })
+    const key = event.target.id
+
     if (subtaskName) {
       try {
         const res = await axios({
@@ -37,7 +39,9 @@ const SubTaskDetails = ({ task, subtask, handleError, sortSubtasks }) => {
 
         dispatch({ type: 'UPDATE_SUBTASK', updatedSubtask: res.data.updatedSubtask })
 
-        dispatch({ type: 'SORT_SUBTASKS', subtasks: res.data.subtasks })
+        if (key === 'scheduled' || key === 'priority' || key === 'completed') {
+          dispatch({ type: 'SORT_SUBTASKS' })
+        }
 
         setSubtaskName(subtaskName)
         setEditInput(false)
@@ -57,6 +61,7 @@ const SubTaskDetails = ({ task, subtask, handleError, sortSubtasks }) => {
       })
 
       dispatch({ type: 'DELETE_SUBTASK', subtask: { subtaskId: id } })
+      dispatch({ type: 'SORT_SUBTASKS' })
     } catch (err) {
       handleError('Can\'t delete subtask')
     }
