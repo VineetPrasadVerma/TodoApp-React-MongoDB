@@ -27,7 +27,7 @@ const Tasks = ({ handleError }) => {
       try {
         const res = await axios({
           method: 'POST',
-          url: 'http://localhost:5500/tasks/',
+          url: 'tasks/',
           data: { taskName },
           headers: { 'Content-type': 'application/json' }
         })

@@ -18,7 +18,7 @@ const Subtask = ({ handleError }) => {
       try {
         const res = await axios({
           method: 'POST',
-          url: 'http://localhost:5500/tasks/' + task.taskId + '/subtasks/',
+          url: '/tasks/' + task.taskId + '/subtasks/',
           data: { subTaskName: subtaskName },
           headers: { 'Content-type': 'application/json' }
         })
@@ -38,7 +38,7 @@ const Subtask = ({ handleError }) => {
     try {
       await axios({
         method: 'DELETE',
-        url: 'http://localhost:5500/tasks/' + task.taskId + '/subtasks/'
+        url: '/tasks/' + task.taskId + '/subtasks/'
       })
 
       dispatch({ type: 'DELETE_COMPLETED_SUBTASKS' })

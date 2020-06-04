@@ -17,7 +17,7 @@ const TaskDetails = ({ task, handleError }) => {
       try {
         await axios({
           method: 'PUT',
-          url: `http://localhost:5500/tasks/${id}`,
+          url: `tasks/${id}`,
           data: { taskName },
           headers: { 'Content-type': 'application/json' }
 
@@ -38,7 +38,7 @@ const TaskDetails = ({ task, handleError }) => {
     try {
       await axios({
         method: 'DELETE',
-        url: `http://localhost:5500/tasks/${id}`
+        url: `tasks/${id}`
       })
 
       dispatch({ type: 'DELETE_TASK', task: { taskId: id } })

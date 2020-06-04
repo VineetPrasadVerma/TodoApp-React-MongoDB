@@ -20,7 +20,7 @@ const SubtaskContextProvider = (props) => {
 
     const fetchSubtasks = async () => {
       try {
-        const res = await axios.get(`http://localhost:5500/tasks/${taskid}/subtasks/`)
+        const res = await axios.get(`/tasks/${taskid}/subtasks/`)
         dispatch({ type: 'SET_SUBTASK', subtasks: res.data.subTasks })
         dispatch({ type: 'SORT_SUBTASKS' })
         setTask(res.data.task)

@@ -31,7 +31,7 @@ const SubTaskDetails = ({ task, subtask, handleError }) => {
       try {
         const res = await axios({
           method: 'PUT',
-          url: 'http://localhost:5500/tasks/' + task.taskId + '/subtasks/' + id,
+          url: '/tasks/' + task.taskId + '/subtasks/' + id,
           data: { [event.target.id]: value },
           headers: { 'Content-type': 'application/json' }
 
@@ -57,7 +57,7 @@ const SubTaskDetails = ({ task, subtask, handleError }) => {
     try {
       await axios({
         method: 'DELETE',
-        url: 'http://localhost:5500/tasks/' + task.taskId + '/subtasks/' + id
+        url: '/tasks/' + task.taskId + '/subtasks/' + id
       })
 
       dispatch({ type: 'DELETE_SUBTASK', subtask: { subtaskId: id } })

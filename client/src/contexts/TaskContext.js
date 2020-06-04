@@ -12,7 +12,7 @@ const TaskContextProvider = (props) => {
     // ).catch(() => { props.handleError('Can\'t get task') })
     const fetchTasks = async () => {
       try {
-        const res = await axios.get('http://localhost:5500/tasks/')
+        const res = await axios.get('tasks/')
         dispatch({ type: 'GET_TASK', tasks: res.data })
       } catch (err) {
         props.handleError('Can\'t get task')
