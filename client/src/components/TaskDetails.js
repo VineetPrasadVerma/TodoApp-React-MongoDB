@@ -49,7 +49,7 @@ const TaskDetails = ({ task, handleError }) => {
 
   return !showEditInput ? (
     <div className='taskItem'>
-      <Link id='taskName' to={`tasks/${task._id}/subtasks/`}><span>{task.name}</span></Link>
+      <Link id='taskName' to={`tasks/${task._id}/subtask/`}><span>{task.name}</span></Link>
       <FontAwesomeIcon id='taskDeleteIcon' icon={faTrash} onClick={() => handleDeleteTask(task._id)} />
       <FontAwesomeIcon id='editIcon' icon={faPencilAlt} onClick={() => setEditInput(true)} />
     </div>

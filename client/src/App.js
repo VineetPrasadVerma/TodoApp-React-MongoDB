@@ -25,7 +25,7 @@ function App () {
             </TaskContextProvider>
           </Route>
 
-          <Route path='/tasks/:taskid/subtasks'>
+          <Route path='/tasks/:taskid/subtask'>
             <SubtaskContextProvider handleError={message => showError(message)}>
               <Subtask handleError={message => showError(message)} />
             </SubtaskContextProvider>
