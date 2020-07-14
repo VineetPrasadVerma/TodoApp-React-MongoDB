@@ -23,4 +23,6 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-app.listen(process.env.PORT, () => console.log(`Todo server has started on PORT ${process.env.PORT}`))
+app.listen(process.env.PORT, () =>
+  console.log(`Todo server has started on PORT ${process.env.PORT}`)
+)

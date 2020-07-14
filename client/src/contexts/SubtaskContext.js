@@ -11,13 +11,6 @@ const SubtaskContextProvider = (props) => {
   const { taskid } = useParams()
 
   useEffect(() => {
-    // axios.get(`http://localhost:5500/tasks/${taskid}/subtasks/`).then(res => {
-    //   dispatch({ type: 'SET_SUBTASK', subtasks: res.data.subTasks })
-    //   dispatch({ type: 'SORT_SUBTASKS' })
-    //   setTask(res.data.task)
-    // }
-    // ).catch(() => { props.handleError('Can\'t get subtask') })
-
     const fetchSubtasks = async () => {
       try {
         const res = await axios.get(`/tasks/${taskid}/subtasks/`)
@@ -25,7 +18,7 @@ const SubtaskContextProvider = (props) => {
         dispatch({ type: 'SORT_SUBTASKS' })
         setTask(res.data.task)
       } catch (err) {
-        props.handleError('Can\'t get subtask')
+        props.handleError("Can't get subtask")
       }
     }
 

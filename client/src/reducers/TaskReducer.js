@@ -1,4 +1,5 @@
 export const taskReducer = (state, action) => {
+  // console.log(state)
   switch (action.type) {
     case 'GET_TASK':
       return [...action.tasks]
@@ -7,10 +8,10 @@ export const taskReducer = (state, action) => {
       return [...state, { _id: action.task.taskId, name: action.task.name }]
 
     case 'DELETE_TASK':
-      return state.filter(task => task._id !== action.task.taskId)
+      return state.filter((task) => task._id !== action.task.taskId)
 
     case 'UPDATE_TASK':
-      return state.map(task => {
+      return state.map((task) => {
         if (task._id === action.task.taskId) {
           task.name = action.task.name
         }

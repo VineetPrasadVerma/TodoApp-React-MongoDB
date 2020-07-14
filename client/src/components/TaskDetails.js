@@ -20,14 +20,13 @@ const TaskDetails = ({ task, handleError }) => {
           url: `tasks/${id}`,
           data: { taskName },
           headers: { 'Content-type': 'application/json' }
-
         })
 
         dispatch({ type: 'UPDATE_TASK', task: { taskId: id, name: taskName } })
         // setTaskName('')
         setEditInput(false)
       } catch (err) {
-        handleError('Can\'t update task')
+        handleError("Can't update task")
       }
     } else {
       event.target.children[0].placeholder = 'Task cannot be empty'
@@ -43,19 +42,35 @@ const TaskDetails = ({ task, handleError }) => {
 
       dispatch({ type: 'DELETE_TASK', task: { taskId: id } })
     } catch (err) {
-      handleError('Can\'t delete task')
+      handleError("Can't delete task")
     }
   }
 
   return !showEditInput ? (
     <div className='taskItem'>
-      <Link id='taskName' to={`tasks/${task._id}/subtask/`}><span>{task.name}</span></Link>
-      <FontAwesomeIcon id='taskDeleteIcon' icon={faTrash} onClick={() => handleDeleteTask(task._id)} />
-      <FontAwesomeIcon id='editIcon' icon={faPencilAlt} onClick={() => setEditInput(true)} />
+      <Link id='taskName' to={`tasks/${task._id}/subtask/`}>
+        <span>{task.name}</span>
+      </Link>
+      <FontAwesomeIcon
+        id='taskDeleteIcon'
+        icon={faTrash}
+        onClick={() => handleDeleteTask(task._id)}
+      />
+      <FontAwesomeIcon
+        id='editIcon'
+        icon={faPencilAlt}
+        onClick={() => setEditInput(true)}
+      />
     </div>
   ) : (
     <form onSubmit={(event) => handleUpdateTask(event, task._id)}>
-      <input type='text' autoFocus value={taskName} placeholder=' Edit task' onChange={(event) => setTaskName(event.target.value)} />
+      <input
+        type='text'
+        autoFocus
+        value={taskName}
+        placeholder=' Edit task'
+        onChange={(event) => setTaskName(event.target.value)}
+      />
     </form>
   )
 }

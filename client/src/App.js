@@ -20,17 +20,18 @@ function App () {
       <div className='App'>
         <Switch>
           <Route path='/' exact>
-            <TaskContextProvider handleError={message => showError(message)}>
-              <Tasks handleError={message => showError(message)} />
+            <TaskContextProvider handleError={showError}>
+              <Tasks handleError={(message) => showError(message)} />
             </TaskContextProvider>
           </Route>
 
           <Route path='/tasks/:taskid/subtask'>
-            <SubtaskContextProvider handleError={message => showError(message)}>
-              <Subtask handleError={message => showError(message)} />
+            <SubtaskContextProvider
+              handleError={(message) => showError(message)}
+            >
+              <Subtask handleError={(message) => showError(message)} />
             </SubtaskContextProvider>
           </Route>
-
         </Switch>
       </div>
     </Router>

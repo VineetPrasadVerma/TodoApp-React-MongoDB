@@ -1,7 +1,11 @@
 import React, { useContext, useState } from 'react'
 import { SubtaskContext } from '../contexts/SubtaskContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash, faPencilAlt, faArrowCircleDown } from '@fortawesome/free-solid-svg-icons'
+import {
+  faTrash,
+  faPencilAlt,
+  faArrowCircleDown
+} from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 import SubtaskExtraDetails from './SubtaskExtraDetails'
 
@@ -34,10 +38,12 @@ const SubTaskDetails = ({ task, subtask, handleError }) => {
           url: '/tasks/' + task.taskId + '/subtasks/' + id,
           data: { [event.target.id]: value },
           headers: { 'Content-type': 'application/json' }
-
         })
 
-        dispatch({ type: 'UPDATE_SUBTASK', updatedSubtask: res.data.updatedSubtask })
+        dispatch({
+          type: 'UPDATE_SUBTASK',
+          updatedSubtask: res.data.updatedSubtask
+        })
 
         if (key === 'scheduled' || key === 'priority' || key === 'completed') {
           dispatch({ type: 'SORT_SUBTASKS' })
@@ -46,7 +52,7 @@ const SubTaskDetails = ({ task, subtask, handleError }) => {
         setSubtaskName(subtaskName)
         setEditInput(false)
       } catch (err) {
-        handleError('Can\'t update subtask')
+        handleError("Can't update subtask")
       }
     } else {
       event.target.children[0].placeholder = 'Subtask cannot be empty'
@@ -63,31 +69,65 @@ const SubTaskDetails = ({ task, subtask, handleError }) => {
       dispatch({ type: 'DELETE_SUBTASK', subtask: { subtaskId: id } })
       dispatch({ type: 'SORT_SUBTASKS' })
     } catch (err) {
-      handleError('Can\'t delete subtask')
+      handleError("Can't delete subtask")
     }
   }
 
   return !showEditInput ? (
     <div className='taskItem'>
       <input
-        id='completed' type='checkbox' checked={completed}
+        id='completed'
+        type='checkbox'
+        checked={completed}
         onChange={(event) => {
           setCompleted(!completed)
           handleUpdateSubtask(event, subtask._id, !completed)
         }}
       />
-      <span className={completed ? 'finished' : ''} id='subtaskName'>{subtask.name}</span>
-      <FontAwesomeIcon style={{ color: color }} className={completed ? 'finished' : ''} id='expandIcon' icon={faArrowCircleDown} onClick={() => setExpandSubtask(!expandSubtask)} />
-      <FontAwesomeIcon className={completed ? 'finished' : ''} id='deleteIcon' icon={faTrash} onClick={() => handleDeleteSubtask(subtask._id)} />
-      <FontAwesomeIcon className={completed ? 'finished' : ''} id='editIcon' icon={faPencilAlt} onClick={() => setEditInput(true)} />
+      <span className={completed ? 'finished' : ''} id='subtaskName'>
+        {subtask.name}
+      </span>
+      <FontAwesomeIcon
+        style={{ color: color }}
+        className={completed ? 'finished' : ''}
+        id='expandIcon'
+        icon={faArrowCircleDown}
+        onClick={() => setExpandSubtask(!expandSubtask)}
+      />
+      <FontAwesomeIcon
+        className={completed ? 'finished' : ''}
+        id='deleteIcon'
+        icon={faTrash}
+        onClick={() => handleDeleteSubtask(subtask._id)}
+      />
+      <FontAwesomeIcon
+        className={completed ? 'finished' : ''}
+        id='editIcon'
+        icon={faPencilAlt}
+        onClick={() => setEditInput(true)}
+      />
       {expandSubtask ? (
-        <SubtaskExtraDetails subtask={subtask} handleUpdateSubtask={handleUpdateSubtask} setExpandSubtask={setExpandSubtask} />) : (
+        <SubtaskExtraDetails
+          subtask={subtask}
+          handleUpdateSubtask={handleUpdateSubtask}
+          setExpandSubtask={setExpandSubtask}
+        />
+      ) : (
         ''
       )}
     </div>
   ) : (
-    <form id='name' onSubmit={(event) => handleUpdateSubtask(event, subtask._id, subtaskName)}>
-      <input type='text' autoFocus value={subtaskName} placeholder=' Edit task' onChange={(event) => setSubtaskName(event.target.value)} />
+    <form
+      id='name'
+      onSubmit={(event) => handleUpdateSubtask(event, subtask._id, subtaskName)}
+    >
+      <input
+        type='text'
+        autoFocus
+        value={subtaskName}
+        placeholder=' Edit task'
+        onChange={(event) => setSubtaskName(event.target.value)}
+      />
     </form>
   )
 }

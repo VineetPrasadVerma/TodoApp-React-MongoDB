@@ -16,7 +16,11 @@ const Tasks = ({ handleError }) => {
   const handleSearchTask = (event) => {
     event.target.placeholder = ' Search | Add Task'
     setTaskName(event.target.value)
-    setSearchedTasks(tasks.filter(task => task.name.toLowerCase().includes(event.target.value.toLowerCase())))
+    setSearchedTasks(
+      tasks.filter((task) =>
+        task.name.toLowerCase().includes(event.target.value.toLowerCase())
+      )
+    )
     // dispatch({ type: 'GET_TASK', tasks: searchedTasks })
   }
 
@@ -32,38 +36,50 @@ const Tasks = ({ handleError }) => {
           headers: { 'Content-type': 'application/json' }
         })
 
-        dispatch({ type: 'ADD_TASK', task: { taskId: res.data.taskId, name: res.data.name } })
+        dispatch({
+          type: 'ADD_TASK',
+          task: { taskId: res.data.taskId, name: res.data.name }
+        })
         setTaskName('')
       } catch (err) {
-        handleError('Can\'t add task')
+        handleError("Can't add task")
       }
     } else {
-      event.target.children[0].placeholder = 'Can\'t add empty task'
+      event.target.children[0].placeholder = "Can't add empty task"
     }
   }
 
   return (
     <div className='container'>
-
       <h1> TODO'S </h1>
 
       <form onSubmit={handleAddTask}>
-        <input type='text' value={taskName} autoFocus placeholder=' Search | Add Task' onChange={(event) => handleSearchTask(event)} />
+        <input
+          type='text'
+          value={taskName}
+          autoFocus
+          placeholder=' Search | Add Task'
+          onChange={(event) => handleSearchTask(event)}
+        />
       </form>
 
       <div className='taskList'>
         {searchedTasks.length ? (
           <div>
-            {searchedTasks.map(task => {
-              return (<TaskDetails handleError={handleError} task={task} key={task._id} />)
+            {searchedTasks.map((task) => {
+              return (
+                <TaskDetails
+                  handleError={handleError}
+                  task={task}
+                  key={task._id}
+                />
+              )
             })}
           </div>
         ) : (
           <p>No Task Found</p>
         )}
-
       </div>
-
     </div>
   )
 }

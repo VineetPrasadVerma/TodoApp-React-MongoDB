@@ -10,7 +10,7 @@ const Subtask = ({ handleError }) => {
   const { task, subtasks, dispatch } = useContext(SubtaskContext)
   const [subtaskName, setSubtaskName] = useState('')
 
-  const completedSubtasks = subtasks.filter(subtask => subtask.completed)
+  const completedSubtasks = subtasks.filter((subtask) => subtask.completed)
 
   const handleAddSubtask = async (event) => {
     event.preventDefault()
@@ -27,10 +27,10 @@ const Subtask = ({ handleError }) => {
         dispatch({ type: 'SORT_SUBTASKS' })
         setSubtaskName('')
       } catch (err) {
-        handleError('Can\'t add subtask')
+        handleError("Can't add subtask")
       }
     } else {
-      event.target.children[0].placeholder = 'Can\'t add empty subtask'
+      event.target.children[0].placeholder = "Can't add empty subtask"
     }
   }
 
@@ -43,21 +43,31 @@ const Subtask = ({ handleError }) => {
 
       dispatch({ type: 'DELETE_COMPLETED_SUBTASKS' })
     } catch (err) {
-      handleError('Can\'t delete subtasks')
+      handleError("Can't delete subtasks")
     }
   }
   return (
     <div className='container'>
-
       <h2>
-        <Link to='/'><FontAwesomeIcon id='backIcon' icon={faArrowCircleLeft} /></Link>
+        <Link to='/'>
+          <FontAwesomeIcon id='backIcon' icon={faArrowCircleLeft} />
+        </Link>
         {task.taskName}
-        <FontAwesomeIcon className={completedSubtasks.length ? '' : 'disable'} id='timesIcon' icon={faTimes} title='Clear completed tasks' onClick={handleDeleteCompletedSubtasks} />
+        <FontAwesomeIcon
+          className={completedSubtasks.length ? '' : 'disable'}
+          id='timesIcon'
+          icon={faTimes}
+          title='Clear completed tasks'
+          onClick={handleDeleteCompletedSubtasks}
+        />
       </h2>
 
       <form onSubmit={handleAddSubtask}>
         <input
-          type='text' value={subtaskName} autoFocus placeholder=' Add subtask'
+          type='text'
+          value={subtaskName}
+          autoFocus
+          placeholder=' Add subtask'
           onChange={(event) => {
             event.target.placeholder = 'Add Subtask'
             setSubtaskName(event.target.value)
@@ -68,16 +78,21 @@ const Subtask = ({ handleError }) => {
       <div className='subtaskList'>
         {subtasks.length ? (
           <div>
-            {subtasks.map(subTask => {
-              return (<SubtaskDetails handleError={handleError} subtask={subTask} task={task} key={subTask._id} />)
+            {subtasks.map((subTask) => {
+              return (
+                <SubtaskDetails
+                  handleError={handleError}
+                  subtask={subTask}
+                  task={task}
+                  key={subTask._id}
+                />
+              )
             })}
           </div>
         ) : (
           <p>No Subtask Found</p>
         )}
-
       </div>
-
     </div>
   )
 }
